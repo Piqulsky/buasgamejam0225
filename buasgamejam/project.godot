@@ -11,5 +11,12 @@ config_version=5
 [application]
 
 config/name="BUasGameJam"
+run/main_scene="res://Scenes/battle_scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Art/icon.svg"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
