@@ -22,5 +22,6 @@ func _physics_process(delta: float) -> void:
 	var collision_info = move_and_collide(velocity * delta)
 	if collision_info:
 		var collidedBuilding := collision_info.get_collider() as Building
-		collidedBuilding.hit()
-		bounceVector = collision_info.get_normal() * 2
+		if collidedBuilding.is_in_group("buildings"):
+			collidedBuilding.hit()
+			bounceVector = collision_info.get_normal() * 2

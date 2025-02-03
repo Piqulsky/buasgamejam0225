@@ -1,37 +1,79 @@
-[gd_scene load_steps=7 format=3 uid="uid://bccw4n27f5i0b"]
+[gd_scene load_steps=6 format=3 uid="uid://bccw4n27f5i0b"]
 
-[ext_resource type="Script" path="res://Scripts/Heart.gd" id="1_dkaa1"]
+[ext_resource type="Script" path="res://Scripts/BattleScene.gd" id="1_fr4jw"]
 [ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="1_l15qv"]
-[ext_resource type="PackedScene" uid="uid://s4v1blcle5vu" path="res://Scenes/enemy.tscn" id="3_prjre"]
+[ext_resource type="PackedScene" uid="uid://d0434v71to13p" path="res://Scenes/heart.tscn" id="1_ya8ah"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3dj8t"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mw1k4"]
+size = Vector2(960, 480)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_yhqbm"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_l15qv")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wydur"]
-size = Vector2(32, 32)
+[sub_resource type="CircleShape2D" id="CircleShape2D_xvomj"]
+radius = 2.0
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_fr4jw")
 
-[node name="HeartStatic" type="StaticBody2D" parent="."]
-position = Vector2(640, 352)
-physics_material_override = SubResource("PhysicsMaterial_3dj8t")
-script = ExtResource("1_dkaa1")
+[node name="HeartStatic" parent="." instance=ExtResource("1_ya8ah")]
 
-[node name="HeartSprite" type="AnimatedSprite2D" parent="HeartStatic"]
-scale = Vector2(0.25, 0.25)
-sprite_frames = SubResource("SpriteFrames_yhqbm")
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 736.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartStatic"]
-shape = SubResource("RectangleShape2D_wydur")
+[node name="PlanningButtonsPanel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_left = 1216.0
+offset_right = 1280.0
+offset_bottom = 704.0
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("3_prjre")]
+[node name="WallButton" type="TextureButton" parent="Control/PlanningButtonsPanel"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture_normal = ExtResource("1_l15qv")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="RemoveButton" type="TextureButton" parent="Control/PlanningButtonsPanel"]
+layout_mode = 0
+offset_top = 576.0
+offset_right = 64.0
+offset_bottom = 640.0
+texture_normal = ExtResource("1_l15qv")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BattlePanel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_top = 640.0
+offset_right = 512.0
+offset_bottom = 736.0
+
+[node name="PlayButton" type="TextureButton" parent="Control/BattlePanel"]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 96.0
+offset_bottom = 64.0
+texture_normal = ExtResource("1_l15qv")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BuildableArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildableArea"]
+position = Vector2(640, 336)
+shape = SubResource("RectangleShape2D_mw1k4")
+
+[node name="MousePoint" type="AnimatableBody2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePoint"]
+shape = SubResource("CircleShape2D_xvomj")
+
+[connection signal="pressed" from="Control/PlanningButtonsPanel/WallButton" to="." method="_on_wall_button_pressed"]
+[connection signal="pressed" from="Control/PlanningButtonsPanel/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="Control/BattlePanel/PlayButton" to="." method="_on_play_button_pressed"]

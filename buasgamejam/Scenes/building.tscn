@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dg7uaipafhq8s"]
+
+[ext_resource type="Script" path="res://Scripts/Building.gd" id="1_4bpn0"]
+[ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="2_kaidv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ffjxc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kaidv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ne2uc"]
+size = Vector2(32, 32)
+
+[node name="BuildingStatic" type="AnimatableBody2D"]
+position = Vector2(448, 256)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_4bpn0")
+
+[node name="BuildingSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_ffjxc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ne2uc")
