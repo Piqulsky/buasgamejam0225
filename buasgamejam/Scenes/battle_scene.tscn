@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="1_l15qv"]
 [ext_resource type="PackedScene" uid="uid://d0434v71to13p" path="res://Scenes/heart.tscn" id="1_ya8ah"]
 [ext_resource type="Script" path="res://Scripts/BattleHUD.gd" id="3_k4yb5"]
-[ext_resource type="Script" path="res://Scripts/BuildingButton.gd" id="4_relvr"]
+[ext_resource type="PackedScene" uid="uid://c1jf61ielnq4x" path="res://Scenes/building_button.tscn" id="4_6dd0l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mw1k4"]
 size = Vector2(960, 480)
@@ -30,19 +30,24 @@ offset_left = 1216.0
 offset_right = 1280.0
 offset_bottom = 704.0
 
-[node name="BuildingButton" type="TextureButton" parent="BattleHUD/PlanningButtonsPanel"]
+[node name="BuildingButton" parent="BattleHUD/PlanningButtonsPanel" instance=ExtResource("4_6dd0l")]
 layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
-texture_normal = ExtResource("1_l15qv")
-ignore_texture_size = true
-stretch_mode = 0
-script = ExtResource("4_relvr")
 
-[node name="RemoveButton" type="TextureButton" parent="BattleHUD/PlanningButtonsPanel"]
+[node name="WallButton" parent="BattleHUD/PlanningButtonsPanel" instance=ExtResource("4_6dd0l")]
 layout_mode = 0
+offset_top = 96.0
+offset_bottom = 160.0
+
+[node name="TurretButton" parent="BattleHUD/PlanningButtonsPanel" instance=ExtResource("4_6dd0l")]
+layout_mode = 0
+offset_top = 192.0
+offset_bottom = 256.0
+
+[node name="RemoveButton" type="TextureButton" parent="BattleHUD"]
+layout_mode = 0
+offset_left = 1216.0
 offset_top = 576.0
-offset_right = 64.0
+offset_right = 1280.0
 offset_bottom = 640.0
 texture_normal = ExtResource("1_l15qv")
 ignore_texture_size = true
@@ -88,7 +93,6 @@ collision_mask = 7
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MousePoint"]
 shape = SubResource("CircleShape2D_xvomj")
 
-[connection signal="pressed" from="BattleHUD/PlanningButtonsPanel/BuildingButton" to="." method="_on_wall_button_pressed"]
-[connection signal="pressed" from="BattleHUD/PlanningButtonsPanel/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="BattleHUD/RemoveButton" to="." method="_on_remove_button_pressed"]
 [connection signal="pressed" from="BattleHUD/BattlePanel/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="timeout" from="BattleHUD/ScoreTimer" to="BattleHUD" method="_on_score_timer_timeout"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1jf61ielnq4x"]
+
+[ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="1_vtvsu"]
+[ext_resource type="Script" path="res://Scripts/BuildingButton.gd" id="2_mbj0v"]
+
+[node name="BuildingButton" type="TextureButton"]
+offset_right = 64.0
+offset_bottom = 64.0
+texture_normal = ExtResource("1_vtvsu")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_mbj0v")
+
+[node name="Remaining" type="Label" parent="."]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 64.0
+offset_bottom = 64.0
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 2
