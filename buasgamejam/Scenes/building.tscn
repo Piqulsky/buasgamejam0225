@@ -17,7 +17,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ne2uc"]
 size = Vector2(32, 32)
 
-[node name="BuildingStatic" type="AnimatableBody2D"]
+[node name="BuildingStatic" type="AnimatableBody2D" groups=["buildings"]]
 position = Vector2(448, 256)
 collision_layer = 2
 collision_mask = 2

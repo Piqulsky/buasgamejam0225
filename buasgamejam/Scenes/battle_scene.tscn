@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bccw4n27f5i0b"]
+[gd_scene load_steps=9 format=3 uid="uid://bccw4n27f5i0b"]
 
 [ext_resource type="Script" path="res://Scripts/BattleScene.gd" id="1_fr4jw"]
 [ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="1_l15qv"]
@@ -12,10 +12,16 @@ size = Vector2(960, 480)
 [sub_resource type="CircleShape2D" id="CircleShape2D_xvomj"]
 radius = 2.0
 
+[sub_resource type="Curve2D" id="Curve2D_ch12j"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1312, -32, 0, 0, 0, 0, 1312, 768, 0, 0, 0, 0, -32, 768, 0, 0, 0, 0, -32, -32, 0, 0, 0, 0, 1312, -32)
+}
+point_count = 5
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_fr4jw")
 
-[node name="HeartStatic" parent="." instance=ExtResource("1_ya8ah")]
+[node name="HeartStatic" parent="." groups=["buildings"] instance=ExtResource("1_ya8ah")]
 
 [node name="BattleHUD" type="Control" parent="."]
 layout_mode = 3
@@ -76,7 +82,6 @@ text = "00:00:00"
 
 [node name="ScoreTimer" type="Timer" parent="BattleHUD"]
 wait_time = 0.05
-autostart = true
 
 [node name="BuildableArea" type="Area2D" parent="."]
 collision_layer = 2
@@ -93,6 +98,17 @@ collision_mask = 7
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MousePoint"]
 shape = SubResource("CircleShape2D_xvomj")
 
+[node name="SpawnPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ch12j")
+
+[node name="SpawnFollow" type="PathFollow2D" parent="SpawnPath"]
+position = Vector2(1312, -32)
+progress = 4288.0
+
+[node name="SpawnTimer" type="Timer" parent="SpawnPath"]
+wait_time = 1.5
+
 [connection signal="pressed" from="BattleHUD/RemoveButton" to="." method="_on_remove_button_pressed"]
 [connection signal="pressed" from="BattleHUD/BattlePanel/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="timeout" from="BattleHUD/ScoreTimer" to="BattleHUD" method="_on_score_timer_timeout"]
+[connection signal="timeout" from="SpawnPath/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

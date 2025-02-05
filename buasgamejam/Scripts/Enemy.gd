@@ -1,13 +1,16 @@
 extends CharacterBody2D
 
+class_name Enemy
 
 const SPEED = 100.0
 var target :Vector2
 var bounceVector :Vector2
+var lives := 5
 
 func _ready() -> void:
 	var heart := $"../HeartStatic"
-	target = heart.position
+	if heart:
+		target = heart.position
 
 
 func _physics_process(delta: float) -> void:
@@ -22,6 +25,14 @@ func _physics_process(delta: float) -> void:
 	var collision_info = move_and_collide(velocity * delta)
 	if collision_info:
 		var collidedBuilding := collision_info.get_collider() as Building
-		if collidedBuilding.is_in_group("buildings"):
+		if collidedBuilding and collidedBuilding.is_in_group("buildings"):
 			collidedBuilding.hit()
 			bounceVector = collision_info.get_normal() * 2
+		else:
+			pass
+			#bounceVector = collision_info.get_normal()
+
+func hit():
+	lives -= 1
+	if lives == 0:
+		queue_free()

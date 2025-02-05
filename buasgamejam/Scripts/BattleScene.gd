@@ -1,7 +1,13 @@
 extends Node2D
 
-var building_scene = preload("res://Scenes/building.tscn")
 var removing_scene = preload("res://Scenes/remove_sprite.tscn")
+var enemy_scene = preload("res://Scenes/enemy.tscn")
+
+var buildings := {
+	"Building": preload("res://Scenes/building.tscn"),
+	"Wall": preload("res://Scenes/wall.tscn"),
+	"Turret": preload("res://Scenes/turret.tscn")
+}
 
 @onready var mouse_point := $MousePoint
 @onready var buildable_area := $BuildableArea
@@ -11,8 +17,8 @@ var selected_object :CollisionObject2D
 
 var planning := true
 
-enum {ADDING, DELETING}
-var current_mode := ADDING
+enum {ADDING, DELETING, EMPTY}
+var current_mode := EMPTY
 var current_building_key := "Building"
 var current_button :TextureButton
 
@@ -24,14 +30,11 @@ var buildingsLeft := {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	selected_object = building_scene.instantiate()
-	add_child(selected_object)
 	for key in buildingsLeft.keys():
-		var button = get_node("BattleHUD/PlanningButtonsPanel/" + key + "Button") as TextureButton
-		button.pressed.connect(_on_building_button_pressed.bind("key", key))
-		var buttonText = button.get_child(0) as Label
+		var buildButton = get_node("BattleHUD/PlanningButtonsPanel/" + key + "Button") as TextureButton
+		buildButton.pressed.connect(_on_building_button_pressed.bind(key))
+		var buttonText = buildButton.get_child(0) as Label
 		buttonText.text = str(buildingsLeft[key])
-	current_button = get_node("BattleHUD/PlanningButtonsPanel/" + current_building_key + "Button") as TextureButton
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -51,8 +54,11 @@ func _process(delta: float) -> void:
 					selected_object.collision_layer = 1
 					occupied_coordinates.append(selected_object.position)
 					selected_object.add_to_group("buildings")
-					selected_object = building_scene.instantiate()
-					add_child(selected_object)
+					if buildingsLeft[current_building_key] > 0:
+						selected_object = buildings[current_building_key].instantiate()
+						add_child(selected_object)
+					else:
+						current_mode = EMPTY
 			DELETING:
 				selected_object.position = newPos
 				if Input.is_action_just_pressed("confirm"):
@@ -61,23 +67,37 @@ func _process(delta: float) -> void:
 						var chosen = overlapping[0] as Building
 						if chosen && chosen.name != $HeartStatic.name:
 							chosen.queue_free()
+							
 
 
 func _on_building_button_pressed(key: String) -> void:
 	current_building_key = key
-	selected_object.queue_free()
-	selected_object = building_scene.instantiate()
+	current_button = get_node("BattleHUD/PlanningButtonsPanel/" + key + "Button") as TextureButton
+	if selected_object and current_mode != EMPTY:
+		selected_object.queue_free()
+	selected_object = buildings[current_building_key].instantiate()
 	add_child(selected_object)
 	current_mode = ADDING
 
-
 func _on_remove_button_pressed() -> void:
-	selected_object.queue_free()
-	selected_object = removing_scene.instantiate()
-	add_child(selected_object)
+	if selected_object:
+		selected_object.queue_free()
+		selected_object = removing_scene.instantiate()
+		add_child(selected_object)
 	current_mode = DELETING
 
 
 func _on_play_button_pressed() -> void:
-	selected_object.queue_free()
+	$BattleHUD/ScoreTimer.start()
+	$SpawnPath/SpawnTimer.start()
+	if current_mode != EMPTY:
+		selected_object.queue_free()
 	planning = false
+
+
+func _on_spawn_timer_timeout() -> void:
+	var follow = $SpawnPath/SpawnFollow as PathFollow2D
+	follow.progress_ratio = randf()
+	var enemy = enemy_scene.instantiate() as Node2D
+	enemy.position = follow.position
+	add_child(enemy)
