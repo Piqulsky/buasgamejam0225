@@ -32,7 +32,8 @@ func _physics_process(delta: float) -> void:
 			pass
 			#bounceVector = collision_info.get_normal()
 
-func hit():
+func hit(directionNormal :Vector2):
+	bounceVector = directionNormal
 	lives -= 1
 	if lives == 0:
 		queue_free()

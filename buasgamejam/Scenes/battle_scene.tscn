@@ -38,16 +38,19 @@ offset_bottom = 704.0
 
 [node name="BuildingButton" parent="BattleHUD/PlanningButtonsPanel" instance=ExtResource("4_6dd0l")]
 layout_mode = 0
+tooltip_text = "Build a regular building. Is destroyed immediately after being hit"
 
 [node name="WallButton" parent="BattleHUD/PlanningButtonsPanel" instance=ExtResource("4_6dd0l")]
 layout_mode = 0
 offset_top = 96.0
 offset_bottom = 160.0
+tooltip_text = "Build a wall. Wall can endure 5 hits."
 
 [node name="TurretButton" parent="BattleHUD/PlanningButtonsPanel" instance=ExtResource("4_6dd0l")]
 layout_mode = 0
 offset_top = 192.0
 offset_bottom = 256.0
+tooltip_text = "Build a turret. Turret can endure 3 hits and shoots nearby enemies."
 
 [node name="RemoveButton" type="TextureButton" parent="BattleHUD"]
 layout_mode = 0
