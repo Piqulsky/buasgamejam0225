@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Art/icon.svg"
 
+[autoload]
+
+Globals="*res://Scripts/Globals.gd"
+
 [display]
 
 window/size/viewport_width=1280
@@ -38,3 +42,7 @@ confirm={
 2d_physics/layer_1="buildings_battle"
 2d_physics/layer_2="buildings_planning"
 2d_physics/layer_3="enemies"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

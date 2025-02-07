@@ -9,4 +9,6 @@ func _ready() -> void:
 func hit() -> void:
 	super.hit()
 	if life == 0:
-		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+		var hudScript = $"../BattleHUD" as BattleHUD
+		Globals.current_time = hudScript.time
+		get_tree().change_scene_to_file("res://Scenes/score_saver.tscn")

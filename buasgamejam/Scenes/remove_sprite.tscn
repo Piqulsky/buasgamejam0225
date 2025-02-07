@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dp2kc3nouv2cn"]
 
-[ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="1_2w0ex"]
+[ext_resource type="Texture2D" uid="uid://bqm1dgm0nffx0" path="res://Art/remove.png" id="1_5pr3b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m7v0s"]
 size = Vector2(32, 32)
@@ -9,8 +9,7 @@ size = Vector2(32, 32)
 
 [node name="RemovingSprite" type="Sprite2D" parent="."]
 rotation = 3.14159
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_2w0ex")
+texture = ExtResource("1_5pr3b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_m7v0s")

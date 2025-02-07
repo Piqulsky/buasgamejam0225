@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://7h6vd3rnqqyi"]
 
 [ext_resource type="Script" path="res://Scripts/Bullet.gd" id="1_00h4u"]
-[ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="2_qktn8"]
+[ext_resource type="Texture2D" uid="uid://1kyikvjbua52" path="res://Art/tile_0119.png" id="2_tp2o8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yoamw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_qktn8")
+"texture": ExtResource("2_tp2o8")
 }],
 "loop": true,
 "name": &"default",
@@ -21,7 +21,8 @@ size = Vector2(8, 8)
 script = ExtResource("1_00h4u")
 
 [node name="BulletSprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.063, 0.063)
+position = Vector2(-0.252, -0.252)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_yoamw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

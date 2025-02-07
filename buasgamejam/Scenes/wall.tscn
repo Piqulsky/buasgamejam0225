@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://ilkqrha87oh6"]
 
 [ext_resource type="Script" path="res://Scripts/Wall.gd" id="1_qnj6k"]
-[ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="2_d8pi6"]
+[ext_resource type="Texture2D" uid="uid://nfdn2sk4ba5i" path="res://Art/tile_0040.png" id="2_twgks"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2e6ak"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_d8pi6")
+"texture": ExtResource("2_twgks")
 }],
 "loop": true,
 "name": &"default",
@@ -18,11 +18,11 @@ animations = [{
 size = Vector2(32, 32)
 
 [node name="Wall" type="StaticBody2D"]
+position = Vector2(-20, -20)
 script = ExtResource("1_qnj6k")
 
 [node name="WallSprite" type="AnimatedSprite2D" parent="."]
-rotation = -1.5708
-scale = Vector2(0.25, 0.25)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_2e6ak")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

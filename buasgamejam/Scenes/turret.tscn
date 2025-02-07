@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://bsc3cs0t0282t"]
 
 [ext_resource type="Script" path="res://Scripts/Turret.gd" id="1_8jdls"]
-[ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="2_m1ij3"]
+[ext_resource type="Texture2D" uid="uid://cunjfbu30dd4v" path="res://Art/tile_0102.png" id="2_co3yw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yoamw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_m1ij3")
+"texture": ExtResource("2_co3yw")
 }],
 "loop": true,
 "name": &"default",
@@ -24,8 +24,7 @@ radius = 128.0
 script = ExtResource("1_8jdls")
 
 [node name="TurretSprite" type="AnimatedSprite2D" parent="."]
-rotation = 1.5708
-scale = Vector2(0.25, 0.25)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_yoamw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -37,6 +36,7 @@ shape = SubResource("RectangleShape2D_ywuxb")
 shape = SubResource("CircleShape2D_xvvfs")
 
 [node name="Polygon2D" type="Polygon2D" parent="RangeArea"]
+visible = false
 color = Color(1, 0, 0, 0.2)
 polygon = PackedVector2Array(128, 0, 128, 0, 96, -96, 0, -128, -96, -96, -128, 0, -96, 96, 0, 128, 96, 96)
 

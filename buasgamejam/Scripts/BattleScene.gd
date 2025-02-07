@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name BattleScene
+
 var removing_scene = preload("res://Scenes/remove_sprite.tscn")
 var enemy_scene = preload("res://Scenes/enemy.tscn")
 
@@ -23,9 +25,9 @@ var current_building_key := "Building"
 var current_button :TextureButton
 
 var buildingsLeft := {
-	"Building": 15,
-	"Wall": 5,
-	"Turret": 2
+	"Building": 100,
+	"Wall": 120,
+	"Turret": 20
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -66,6 +68,9 @@ func _process(delta: float) -> void:
 					if not overlapping.is_empty():
 						var chosen = overlapping[0] as Building
 						if chosen && chosen.name != $HeartStatic.name:
+							var script_name = str(chosen.get_script().get_path()).erase(0, 14).get_slice(".", 0)
+							buildingsLeft[script_name] += 1
+							get_node("BattleHUD/PlanningButtonsPanel/" + script_name + "Button").get_child(0).text = str(buildingsLeft[script_name])
 							chosen.queue_free()
 							
 
@@ -82,12 +87,13 @@ func _on_building_button_pressed(key: String) -> void:
 func _on_remove_button_pressed() -> void:
 	if selected_object:
 		selected_object.queue_free()
-		selected_object = removing_scene.instantiate()
-		add_child(selected_object)
+	selected_object = removing_scene.instantiate()
+	add_child(selected_object)
 	current_mode = DELETING
 
 
 func _on_play_button_pressed() -> void:
+	$BattleHUD/PlanningButtonsPanel.visible = false
 	$BattleHUD/ScoreTimer.start()
 	$SpawnPath/SpawnTimer.start()
 	if current_mode != EMPTY:

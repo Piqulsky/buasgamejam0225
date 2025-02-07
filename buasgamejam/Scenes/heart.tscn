@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://d0434v71to13p"]
 
 [ext_resource type="Script" path="res://Scripts/Heart.gd" id="1_favx2"]
-[ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="2_1xxmd"]
+[ext_resource type="Texture2D" uid="uid://do3dcgmi36mh3" path="res://Art/tile_0029.png" id="2_8gt1o"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3dj8t"]
 
@@ -9,7 +9,7 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_1xxmd")
+"texture": ExtResource("2_8gt1o")
 }],
 "loop": true,
 "name": &"default",
@@ -25,7 +25,7 @@ physics_material_override = SubResource("PhysicsMaterial_3dj8t")
 script = ExtResource("1_favx2")
 
 [node name="HeartSprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_yhqbm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

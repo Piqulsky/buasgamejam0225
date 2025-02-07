@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=3 uid="uid://p1u63v0mx63f"]
+
+[ext_resource type="Script" path="res://Scripts/ScoreSaver.gd" id="1_rtdl6"]
+[ext_resource type="Texture2D" uid="uid://dabwt16am77p6" path="res://Art/UI/tile_0007.png" id="2_iagcd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c6d7t"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_d3w3k"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[node name="ScoreSaver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rtdl6")
+
+[node name="TextEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 160.0
+offset_right = 896.0
+offset_bottom = 352.0
+theme_override_font_sizes/font_size = 128
+placeholder_text = "P.I."
+alignment = 1
+max_length = 4
+caret_blink = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 352.0
+offset_right = 768.0
+offset_bottom = 448.0
+text = "00:00:00"
+label_settings = SubResource("LabelSettings_c6d7t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 64.0
+offset_right = 928.0
+offset_bottom = 160.0
+text = "Enter your initials:"
+label_settings = SubResource("LabelSettings_c6d7t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 448.0
+offset_right = 768.0
+offset_bottom = 544.0
+texture_normal = ExtResource("2_iagcd")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="TextureButton"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 96.0
+text = "SAVE"
+label_settings = SubResource("LabelSettings_d3w3k")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="text_changed" from="TextEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

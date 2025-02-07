@@ -1,20 +1,21 @@
 [gd_scene load_steps=5 format=3 uid="uid://s4v1blcle5vu"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_pd7pd"]
-[ext_resource type="Texture2D" uid="uid://psa0q21lf1wp" path="res://Art/icon.svg" id="2_wsnyy"]
+[ext_resource type="Texture2D" uid="uid://ddxsh3puj5elg" path="res://Art/tile_0121.png" id="2_2vkao"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yhqbm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_wsnyy")
+"texture": ExtResource("2_2vkao")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5iabc"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ne8q"]
+radius = 16.0
 
 [node name="EnemyCharacter" type="CharacterBody2D"]
 collision_layer = 5
@@ -22,10 +23,8 @@ collision_mask = 5
 script = ExtResource("1_pd7pd")
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="."]
-rotation = 0.785398
-scale = Vector2(0.2, 0.2)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_yhqbm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 0.785398
-shape = SubResource("RectangleShape2D_5iabc")
+shape = SubResource("CircleShape2D_1ne8q")

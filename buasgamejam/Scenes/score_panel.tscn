@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwnqphpqdgs8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6cu1j"]
+font_size = 32
+
+[node name="ScorePanel" type="PanelContainer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 400
+
+[node name="InitialsLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "P.I.
+"
+label_settings = SubResource("LabelSettings_6cu1j")
+
+[node name="TimeLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "00:00:00"
+label_settings = SubResource("LabelSettings_6cu1j")
